@@ -1,0 +1,20 @@
+{
+  "name": "docker-gen",
+  "version": "1.0.0",
+  "description": "Docker Micro Services generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava",
+    "plop": "plop"
+  },
+  "keywords": [
+    "docker",
+    "generator",
+    "service"
+  ],
+  "author": "Kristian Mandrup",
+  "license": "ISC",
+  "devDependencies": {
+    "plop": "^1.7.4"
+  }
+}
