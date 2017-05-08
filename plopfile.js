@@ -1,3 +1,5 @@
+let data = require('./fixtures/single-service')
+
 module.exports = (plop) => {
 
   // We declare a new generator called "module"
@@ -6,14 +8,10 @@ module.exports = (plop) => {
     // Succintly describes what generator does.
     description: "Create a new module",
 
-    prompts: [],
     // Get inputs from the user.
     // That's Inquirer.js doing the job behind the hood.
     inputs: (config) => {
-      console.log(config)
-      return {
-        name: 'hello'
-      }
+      return data
     },
 
     // List of actions to take.
