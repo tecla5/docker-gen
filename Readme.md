@@ -10,6 +10,21 @@ Install plop binary globally
 
 `npm install -g plop`
 
+### Docker compose
+
+Using Docker Compose [v3 schema](https://github.com/aanand/compose-file/blob/master/schema/data/config_schema_v3.0.json)
+
+Deploy swarm mode
+
+```yaml
+  deploy:
+    mode: replicated
+    replicas: 2
+    labels: [APP=VOTING]
+    placement:
+      constraints: [node.role == worker]
+```
+
 ### Run
 
 `plop`
@@ -28,7 +43,6 @@ This can fx be used to customize the inputs file used, to override the default
 $ plop -inputs fixtures/custom
 [SUCCESS] add /app/docker-compose.yml
 ```
-
 
 ### Troubleshooting
 
@@ -54,28 +68,25 @@ module.exports = (plop, opts = {}) => {
     },
 ```
 
-The actions are specified using simple *plop* action format with handleBars helpers.
+The actions are specified using simple *plop* action format with handlebars helpers.
 
 ```js
-    // List of actions to take.
-    // Here we "add" new files from our templates.
-    actions: {
-      list: [{
-          type: "add",
-          path: "app/services/{{dashCase name}}/.babelrc",
-          templateFile: "plop-templates/babelrc.tpl"
-        }, {
-        // ...
-        }],
-      item: [{
-        type: "add",
-        path: "app/docker-compose.yml",
-        templateFile: "plop-templates/docker-compose.yml.tpl"
-      }]
-      }
-    }
-
-
+// List of actions to take.
+// Here we "add" new files from our templates.
+actions: {
+  list: [{
+      type: "add",
+      path: "app/services/{{dashCase name}}/.babelrc",
+      templateFile: "plop-templates/babelrc.tpl"
+    }, {
+    // ...
+    }],
+  item: [{
+    type: "add",
+    path: "app/docker-compose.yml",
+    templateFile: "plop-templates/docker-compose.yml.tpl"
+  }]
+  }
 }
 ```
 
