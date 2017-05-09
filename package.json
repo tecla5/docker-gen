@@ -15,6 +15,6 @@
   "author": "Kristian Mandrup",
   "license": "ISC",
   "devDependencies": {
-    "plop": "^1.7.4"
+    "plop": "tecla5/plop"
   }
 }
