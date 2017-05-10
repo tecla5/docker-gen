@@ -27,7 +27,11 @@ Deploy swarm mode
 
 ### Run
 
-`plop`
+Generate an `./app` Docker project for hemera
+
+`npm start`
+
+Removes any existing `./app` folder and generate a new one!
 
 You can also pass options ([minimist](https://www.npmjs.com/package/minimist) way) like this:
 
@@ -92,7 +96,7 @@ actions: {
 
 ## TODO
 
-Finish it!
+Add labels to conform with [node-red-import](https://github.com/tecla5/node-red-import)
 
 ## License
 

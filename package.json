@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "ava",
-    "plop": "plop"
+    "plop": "plop",
+    "start": "rm -rf app && plop"
   },
   "keywords": [
     "docker",
