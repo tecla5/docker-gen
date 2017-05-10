@@ -54,6 +54,12 @@ $ plop -inputs fixtures/custom
 [SUCCESS] add /app/docker-compose.yml
 ```
 
+## Docker compose
+
+When we manage to generate a valid `docker-compose.yml` file, we should be able to run it as a Docker micro service project via:
+
+`docker-compose up`
+
 ### Troubleshooting
 
 ERROR: `[FAILED] add File already exists`
