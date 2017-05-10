@@ -1,5 +1,9 @@
 # Docker Micro Services generator
 
+Generate a fully configured Docker Micro Services from a node-red project with [sub-match](https://github.com/tecla5/node-red/tree/master/nodes/service) nodes for [hemera](https://github.com/hemerajs) or [seneca](http://senecajs.org/) based services (using message publish/subscribe and pattern matching).
+
+Such a Docker project can in turn be (re)-imported into node-red via [node-red-import](https://github.com/tecla5/node-red-import)
+
 ## Plop
 
 See [plop](http://www.nicoespeon.com/en/2015/11/plop-micro-generator-boilerplate-yeoman-alternative/)
