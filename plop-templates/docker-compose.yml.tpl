@@ -31,6 +31,13 @@ services:
 
   {{#each dockerServices }}
   {{ dashCase name }}:
+    labels:
+      id: {{ id }}
+      node-red: true
+      description: {{ description }}
+      framework: {{ framework }}
+      topic: {{ topic }}
+      pattern: {{ pattern }}
     build:
       context: "./services/{{ dashCase name }}"
     links:
