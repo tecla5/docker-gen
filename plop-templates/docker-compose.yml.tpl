@@ -37,7 +37,7 @@ services:
       description: {{ description }}
       framework: {{ framework }}
       topic: {{ topic }}
-      pattern: {{ pattern }}
+      pattern: {{{ pattern }}}
     build:
       context: "./services/{{ dashCase name }}"
     links:
