@@ -6,7 +6,8 @@
   "scripts": {
     "test": "ava",
     "plop": "plop",
-    "start": "rm -rf app && plop"
+    "start": "rm -rf app && plop",
+    "start:dev": "rm -rf app && ./node_modules/plop/src/plop.js"
   },
   "keywords": [
     "docker",

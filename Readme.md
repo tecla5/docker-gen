@@ -12,7 +12,7 @@ See [plop](http://www.nicoespeon.com/en/2015/11/plop-micro-generator-boilerplate
 
 Install plop binary globally
 
-`npm install -g plop`
+`npm install -g github:tecla5/plop`
 
 ### Docker compose
 
@@ -33,9 +33,11 @@ Deploy swarm mode
 
 Generate an `./app` Docker project for hemera
 
-`npm start`
+`npm start` using global `plop` binary
 
-Removes any existing `./app` folder and generate a new one!
+Alternatively `npm run start:dev` to use local plop in `node_modules`
+
+Should remove any existing `./app` folder and generate a new `app` project!
 
 You can also pass options ([minimist](https://www.npmjs.com/package/minimist) way) like this:
 
