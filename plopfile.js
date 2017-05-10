@@ -1,3 +1,10 @@
+// custom actions
+function copyNats() {
+  // copy nats folder
+  console.log('TODO: copy /nats folder')
+  return 'copied'
+}
+
 module.exports = (plop, opts = {}) => {
   let inputsPath = opts.inputs || './fixtures/single-service'
   let data = require(inputsPath)
@@ -20,7 +27,9 @@ module.exports = (plop, opts = {}) => {
     // List of actions to take.
     // Here we "add" new files from our templates.
     actions: {
-      list: [{
+      list: [
+        copyNats,
+        {
           type: "add",
           path: "{{root}}/services/{{dashCase name}}/.babelrc",
           templateFile: "plop-templates/babelrc.tpl"

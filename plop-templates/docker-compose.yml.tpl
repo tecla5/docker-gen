@@ -33,7 +33,7 @@ services:
   {{ dashCase name }}:
     labels:
       id: {{ id }}
-      node-red: true
+      node-red: on
       description: {{ description }}
       framework: {{ framework }}
       topic: {{ topic }}
