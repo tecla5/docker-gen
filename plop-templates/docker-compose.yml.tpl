@@ -1,4 +1,4 @@
-version: "3.0"
+version: "2.0"
 
 services:
   nats:
@@ -33,7 +33,7 @@ services:
   {{ dashCase name }}:
     labels:
       id: {{ id }}
-      node-red: on
+      node-red: 'on'
       description: {{ description }}
       framework: {{ framework }}
       topic: {{ topic }}
@@ -44,12 +44,6 @@ services:
       - nats
     depends_on:
       - nats
-    deploy:
-      mode: replicated
-      replicas: {{ swarmCount }}
-      labels: [APP={{ dashCase name }}]
-      placement:
-        constraints: [node.role == worker]
     restart: always
     environment:
       NATS_URL: nats://nats:4222

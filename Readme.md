@@ -60,6 +60,19 @@ When we manage to generate a valid `docker-compose.yml` file, we should be able 
 
 `docker-compose up`
 
+## TODO
+
+Upgrade to docker-compose schema V3 with `deploy` section
+
+```yaml
+    deploy:
+      mode: replicated
+      replicas: {{ swarmCount }}
+      labels: [APP={{ dashCase name }}]
+      placement:
+        constraints: [node.role == worker]
+```
+
 ### Troubleshooting
 
 ERROR: `[FAILED] add File already exists`

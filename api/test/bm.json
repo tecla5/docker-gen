@@ -1,0 +1,154 @@
+{
+  "id": "ti6yn",
+  "project": "",
+  "properties": {
+    "name": "network-bm",
+    "environment": {
+      "runtime": "html",
+      "src": "preview/iframe.html",
+      "width": 300,
+      "height": 300
+    }
+  },
+  "groups": [
+    {
+      "name": "VM1",
+      "nodes": ["memcache_1", "apache"],
+      "metadata": {
+        "description": "docker swarm",
+        "color": 1
+      }
+    },
+    {
+      "name": "VM2",
+      "nodes": [ "web/sympony", "web/services"],
+      "metadata": {
+        "description": "docker swarm",
+        "color": 2
+      }
+    },
+    {
+      "name": "VM3",
+      "nodes": [ "elasticsearch", "nginx", "memcache_2"],
+      "metadata": {
+        "description": "docker swarm",
+        "color": 3
+      }
+    }
+  ],
+  "processes": {
+    "memcache_1": {
+      "component": "database",
+      "metadata": {
+        "x": 100,
+        "y": 150,
+        "label": "memcache_1"
+      }
+    },
+    "apache": {
+      "component": "server",
+      "metadata": {
+        "x": 200,
+        "y": 150,
+        "label": "apache"
+      }
+    },
+    "web/sympony": {
+      "component": "server",
+      "icon": "eye",
+      "metadata": {
+        "x": 350,
+        "y": 150,
+        "label": "sympony"
+      }
+    },
+    "web/services": {
+      "component": "server",
+      "metadata": {
+        "x": 500,
+        "y": 150,
+        "label": "web/services"
+      }
+    },
+    "elasticsearch": {
+      "component": "server",
+      "metadata": {
+        "x": 100,
+        "y": 400,
+        "label": "elasticsearch"
+      }
+    },
+    "nginx": {
+      "component": "server",
+      "metadata": {
+        "x": 250,
+        "y": 400,
+        "label": "nginx"
+      }
+    },
+    "memcache_2": {
+      "component": "database",
+      "metadata": {
+        "x": 400,
+        "y": 400,
+        "label": "memcache_2"
+      }
+    }
+  },
+
+
+  "connections": [
+    {
+      "src": {
+        "process": "memcache_1",
+        "port": "element"
+      },
+      "tgt": {
+        "process": "memcache_2",
+        "port": "in"
+      },
+      "metadata": {
+        "route": "1"
+      }
+    },
+    {
+      "src": {
+        "process": "web/sympony",
+        "port": "element"
+      },
+      "tgt": {
+        "process": "apache",
+        "port": "element"
+      },
+      "metadata": {
+        "route": "10"
+      }
+    },
+    {
+      "src": {
+        "process": "web/sympony",
+        "port": "element"
+      },
+      "tgt": {
+        "process": "web/services",
+        "port": "in"
+      },
+      "metadata": {
+        "route": "10"
+      }
+    },
+    {
+      "src": {
+        "process": "elasticsearch",
+        "port": "element"
+      },
+      "tgt": {
+        "process": "web/services",
+        "port": "in"
+      },
+      "metadata": {
+        "route": "10"
+      }
+    }
+  ]
+}
