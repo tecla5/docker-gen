@@ -70,8 +70,6 @@ async function run(opts = {}) {
 
   actions.list = actions.list.concat(customActions(data, opts))
   let plopConfig = require('./plop-config')(data, actions)
-  console.log('p', p)
-
   let plop = p.nodePlop(plopConfig)
   let generator = plop.setGenerator('default', plopConfig)
   // We declare a new generator called "module"
