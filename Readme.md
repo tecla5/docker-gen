@@ -54,6 +54,19 @@ $ plop -inputs fixtures/custom
 [SUCCESS] add /app/docker-compose.yml
 ```
 
+### Run as library
+
+Plop can now be run completely as a library, without any Terminal requirement.
+
+`node run.js`
+
+```js
+#!/usr/bin/env node
+
+var run = require('./plop-run')
+run()
+```
+
 ## Docker compose
 
 When we manage to generate a valid `docker-compose.yml` file, we should be able to run it as a Docker micro service project via:
