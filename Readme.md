@@ -62,6 +62,17 @@ When we manage to generate a valid `docker-compose.yml` file, we should be able 
 
 ## TODO
 
+### Change Actions naming
+
+- `list` to `forAll`
+- `item` to `forEach`
+
+### Upgrade plop
+
+[merge with plop 0.6](https://github.com/amwmedia/node-plop/pull/33#issuecomment-300794351)
+
+### Upgrade docker schema V3
+
 Upgrade to docker-compose schema V3 with `deploy` section
 
 ```yaml

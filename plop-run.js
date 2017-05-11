@@ -27,28 +27,30 @@ function customActions(data, opts = {}) {
 
 class VirtualFileSystem {
   constructor(opts = {}) {
-    this.opts = opts
-    this.dirs = {}
-    this.files = {}
+    this.config = {
+      opts,
+      dirs: {},
+      files: {}
+    }
   }
 
   async fileExists(filePath) {
-    return await this.files[filePath]
+    return await this.config.files[filePath]
   }
   async makeDir(dirPath) {
-    return await this.dirs[dirPath]
+    return await this.config.dirs[dirPath]
   }
   async writeFile(filePath, data) {
     let lastWritten = {
       filePath,
       data
     }
-    this.files[filePath] = lastWritten
-    this.lastWritten = lastWritten
+    this.config.files[filePath] = lastWritten
+    this.config.lastWritten = lastWritten
   }
 
   toString() {
-    return this.lastWritten.filePath
+    return this.config.lastWritten.filePath
   }
 }
 
@@ -56,7 +58,9 @@ function createVirtualFileSystem(opts) {
   return new VirtualFileSystem(opts);
 }
 
-module.exports = (plop, opts = {}) => {
+let p = require('node-plop');
+
+async function run(opts = {}) {
   let inputsPath = opts.inputs || './fixtures/single-service'
   let data = require(inputsPath)
   data = Object.assign(data, {
@@ -66,7 +70,15 @@ module.exports = (plop, opts = {}) => {
 
   actions.list = actions.list.concat(customActions(data, opts))
   let plopConfig = require('./plop-config')(data, actions)
+  console.log('p', p)
 
+  let plop = p.nodePlop(plopConfig)
+  let generator = plop.setGenerator('default', plopConfig)
   // We declare a new generator called "module"
-  let generator = plop.setGenerator('docker', plopConfig);
+  p.doThePlop(generator, {}, (result) => {
+    console.log('result', result)
+    console.log('first change', result.changes[0].vfs)
+  });
 };
+
+module.exports = run
