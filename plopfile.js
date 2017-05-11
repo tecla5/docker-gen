@@ -1,25 +1,27 @@
 var fs = require('fs-extra')
-
+var path = require('path')
 var actions = require('./actions')
+
+function copyFolder(root, dir) {
+  return async function copyNats() {
+    let srcPath = path.resolve(__dirname, dir)
+    let targetPath = path.resolve(root, dir)
+    try {
+      await fs.copy(srcPath, targetPath)
+      return `copied ${srcPath} to ${targetPath}`
+    } catch (err) {
+      console.error(err)
+      return `error on copy ${srcPath}`
+    }
+  }
+}
 
 // custom actions
 function customActions(data, opts = {}) {
-  function copyNats() {
-    // copy nats folder
-    console.log('TODO: copy /nats folder to:', data.root)
-
-
-    return 'copied nats'
-  }
-  function copyApi() {
-    // copy nats folder
-    console.log('TODO: copy /api folder to:', data.root)
-    return 'copied api'
-  }
 
   return [
-    copyNats,
-    copyApi
+    copyFolder(data.root, 'nats'),
+    copyFolder(data.root, 'api')
   ]
 }
 
