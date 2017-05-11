@@ -18,5 +18,8 @@
   "license": "ISC",
   "devDependencies": {
     "plop": "tecla5/plop"
+  },
+  "dependencies": {
+    "fs-extra": "^3.0.1"
   }
 }

@@ -1,3 +1,5 @@
+var fs = require('fs-extra')
+
 var actions = require('./actions')
 
 // custom actions
@@ -5,6 +7,8 @@ function customActions(data, opts = {}) {
   function copyNats() {
     // copy nats folder
     console.log('TODO: copy /nats folder to:', data.root)
+
+
     return 'copied nats'
   }
   function copyApi() {
