@@ -25,43 +25,14 @@ function customActions(data, opts = {}) {
   ]
 }
 
-class VirtualFileSystem {
-  constructor(opts = {}) {
-    this.opts = opts
-    this.dirs = {}
-    this.files = {}
-  }
-
-  async fileExists(filePath) {
-    return await this.files[filePath]
-  }
-  async makeDir(dirPath) {
-    return await this.dirs[dirPath]
-  }
-  async writeFile(filePath, data) {
-    let lastWritten = {
-      filePath,
-      data
-    }
-    this.files[filePath] = lastWritten
-    this.lastWritten = lastWritten
-  }
-
-  toString() {
-    return this.lastWritten.filePath
-  }
-}
-
-function createVirtualFileSystem(opts) {
-  return new VirtualFileSystem(opts);
-}
+var vfs = require('./vfs')
 
 module.exports = (plop, opts = {}) => {
   let inputsPath = opts.inputs || './fixtures/single-service'
   let data = require(inputsPath)
   data = Object.assign(data, {
     root: opts.root || 'app',
-    fsys: createVirtualFileSystem(opts)
+    fsys: vfs(opts)
   })
 
   actions.list = actions.list.concat(customActions(data, opts))
