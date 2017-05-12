@@ -1,13 +1,25 @@
+var md5 = require('md5')
+
 function createNodeMatcher(list, attrib = 'name') {
   return function nodeMatch(node) {
     list.find(compareNode => compareNode[attrib] === node[attrib])
   }
 }
 
+function prepareNode(node) {
+  node.hashCode = node.hashCode || md5(node.data)
+  return node
+}
+
+function prepareNodes(...nodes) {
+  nodes.map(node => prepareNode(node))
+}
+
 function createCompareNode(compareList) {
   const nodeMatch = createNodeMatcher(compareList)
 
   function isSame(node, matchNode) {
+    prepareNodes(node, matchNode)
     return matchNode.hashCode === node.hashCode
   }
 
@@ -38,8 +50,6 @@ function createCompareNode(compareList) {
   }
 }
 
-module.exports = compareAll
-
 function compareAll(list, compareList) {
   var compareNode = createCompareNode(compareList)
   let ops = list.map(node => compareNode(node))
@@ -58,4 +68,11 @@ function compareAll(list, compareList) {
     ops,
     deleted
   }
+}
+
+module.exports = {
+  compareAll,
+  createCompareNode,
+  createNodeMatcher,
+  prepareNode
 }

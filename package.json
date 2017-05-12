@@ -27,11 +27,16 @@
   },
   "dependencies": {
     "fs-extra": "^3.0.1",
-    "level": "^1.6.0"
+    "level": "^1.6.0",
+    "md5": "^2.2.1"
   },
   "babel": {
-    "presets": ["env"],
-    "plugins": ["transform-runtime"]
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
   },
   "ava": {
     "files": [
@@ -43,7 +48,8 @@
     "tap": true,
     "powerAssert": false,
     "require": [
-      "babel-register", "babel-polyfill"
+      "babel-register",
+      "babel-polyfill"
     ],
     "babel": "inherit"
   }

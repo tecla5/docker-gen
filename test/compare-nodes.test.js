@@ -1,5 +1,7 @@
 import test from 'ava'
-var compare = require('../commits/compare')
+var {
+  compareAll
+} = require('../commits/compare')
 var nodes = require('../fixtures/file-compare')
 
 function pretty(obj) {
@@ -7,7 +9,7 @@ function pretty(obj) {
 }
 
 test('compare', t => {
-  let result = compare(nodes.first, nodes.new)
+  let result = compareAll(nodes.first, nodes.new)
   console.log('ops', pretty(result.ops))
   t.pass()
 })
