@@ -8,21 +8,25 @@ function createNodeMatcher(list, attrib = 'filePath') {
 }
 
 function prepareNode(node) {
+  if (!node.data) {
+    console.error('bad', node)
+    throw Error('Node must have data to hash')
+  }
   node.hashCode = node.hashCode || md5(node.data)
   return node
 }
 
-function prepareNodes(...nodes) {
-  nodes.map(node => prepareNode(node))
+function prepareNodes(nodes) {
+  return nodes.map(node => prepareNode(node))
+}
+
+function isSame(node, matchNode) {
+  prepareNodes([node, matchNode])
+  return matchNode.hashCode === node.hashCode
 }
 
 function createCompareNode(compareList) {
   const nodeMatch = createNodeMatcher(compareList)
-
-  function isSame(node, matchNode) {
-    prepareNodes(node, matchNode)
-    return matchNode.hashCode === node.hashCode
-  }
 
   return function compareNode(node) {
     let matchNode = nodeMatch(node)
@@ -81,5 +85,7 @@ module.exports = {
   compareAll,
   createCompareNode,
   createNodeMatcher,
-  prepareNode
+  isSame,
+  prepareNode,
+  prepareNodes
 }
