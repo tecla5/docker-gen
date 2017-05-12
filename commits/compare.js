@@ -1,8 +1,9 @@
 var md5 = require('md5')
 
-function createNodeMatcher(list, attrib = 'name') {
+function createNodeMatcher(list, attrib = 'filePath') {
+  console.log('createNodeMatcher', list)
   return function nodeMatch(node) {
-    list.find(compareNode => compareNode[attrib] === node[attrib])
+    return list.find(compareNode => compareNode[attrib] === node[attrib])
   }
 }
 
@@ -25,7 +26,12 @@ function createCompareNode(compareList) {
 
   return function compareNode(node) {
     let matchNode = nodeMatch(node)
+    let pair = {
+      node,
+      matchNode
+    }
     if (matchNode) {
+      console.log('matchNode found', pair)
       if (isSame(node, matchNode)) {
         // same node
         return {
@@ -41,6 +47,7 @@ function createCompareNode(compareList) {
         }
       }
     } else {
+      console.log('no matchNode found for', pair)
       // new node
       return {
         type: 'new',

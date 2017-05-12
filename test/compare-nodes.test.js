@@ -9,7 +9,10 @@ function pretty(obj) {
 }
 
 test('compare', t => {
-  let result = compareAll(nodes.first, nodes.new)
-  console.log('ops', pretty(result.ops))
+  let result = compareAll(nodes.first, nodes.mix)
+  console.log('RESULT')
+  console.log('ops', pretty(result.ops), {
+    deleted: result.deleted
+  })
   t.pass()
 })
