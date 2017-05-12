@@ -7,8 +7,6 @@ module.exports = (data, actions) => {
     // Succintly describes what generator does.
     description: "Create a new module",
 
-    // Get inputs from the user.
-    // That's Inquirer.js doing the job behind the hood.
     inputs: (config) => {
       // console.log('data', data)
       return data
