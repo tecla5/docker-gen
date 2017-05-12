@@ -1,9 +1,8 @@
 var md5 = require('md5')
 
-function createNodeMatcher(list, attrib = 'filePath') {
-  console.log('createNodeMatcher', list)
+function createNodeMatcher(compareList, attrib = 'filePath') {
   return function nodeMatch(node) {
-    return list.find(compareNode => compareNode[attrib] === node[attrib])
+    return compareList.find(compareNode => compareNode[attrib] === node[attrib])
   }
 }
 
@@ -25,6 +24,34 @@ function isSame(node, matchNode) {
   return matchNode.hashCode === node.hashCode
 }
 
+function resolveMatch({
+  node,
+  matchNode
+}) {
+  if (isSame(node, matchNode)) {
+    // same node
+    return {
+      type: 'same',
+      node
+    }
+  } else {
+    // modified node
+    return {
+      type: 'modified',
+      prev: matchNode,
+      node
+    }
+  }
+}
+
+function newNode(node) {
+  // new node
+  return {
+    type: 'new',
+    node
+  }
+}
+
 function createCompareNode(compareList) {
   const nodeMatch = createNodeMatcher(compareList)
 
@@ -35,50 +62,45 @@ function createCompareNode(compareList) {
       matchNode
     }
     if (matchNode) {
-      console.log('matchNode found', pair)
-      if (isSame(node, matchNode)) {
-        // same node
-        return {
-          type: 'same',
-          node
-        }
-      } else {
-        // modified node
-        return {
-          type: 'modified',
-          prev: matchNode,
-          node
-        }
-      }
+      return resolveMatch(pair)
     } else {
-      console.log('no matchNode found for', pair)
-      // new node
-      return {
-        type: 'new',
-        node
-      }
+      return newNode(node)
     }
   }
+}
+
+function findDeleted(compareList, nodeMatch) {
+  return compareList.reduce((acc, node) => {
+    let matchNode = nodeMatch(node)
+    if (!matchNode) {
+      acc.push(node)
+    }
+    return acc
+  }, [])
+}
+
+function deletedNodes(list) {
+  return list.map(node => {
+    return {
+      type: 'deleted',
+      node: node
+    }
+  })
 }
 
 function compareAll(list, compareList) {
   var compareNode = createCompareNode(compareList)
   let ops = list.map(node => compareNode(node))
 
-  const nodeMatch = createNodeMatcher(list)
-  let deleted = compareList.reduce((acc, node) => {
-    nodeMatch(node) ? acc.push(node) : undefined
-    return acc
-  }, [])
+  const nodeMatch = createNodeMatcher(compareList)
+  let deleted = findDeleted(list, nodeMatch)
 
-  console.log('Comparison', {
-    ops,
-    deleted
-  })
-  return {
-    ops,
-    deleted
+  // const nodeMatch = createNodeMatcher(list)
+  // let deleted = findDeleted(compareList, nodeMatch)
+  if (deleted) {
+    ops = ops.concat(deletedNodes(deleted))
   }
+  return ops
 }
 
 module.exports = {
@@ -87,5 +109,7 @@ module.exports = {
   createNodeMatcher,
   isSame,
   prepareNode,
-  prepareNodes
+  prepareNodes,
+  resolveMatch,
+  findDeleted
 }
