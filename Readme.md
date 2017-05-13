@@ -13,6 +13,20 @@ that listens to incoming data in request `body` and uses it as `inputs` argument
 
 See `fixtures/nodes.js` for an example.
 
+## Commits
+
+The `/commits` folder contains `compare` which can compare two `node-red` exports and determine which generated files have changed, calculate a file diff.
+
+- Add support for `move`?
+- Well, not really possible to `move` with generated content :)
+
+The `store` can be used to store each file diff for comparison and travel across time, just like in git.
+
+Currently the following Git APIs are (being) supported (see `/commits/git`:
+
+- [Gitlab commits API](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/commits.md)
+- [Github commits API](https://developer.github.com/v3/git/commits/)
+
 ## Plop
 
 See [plop](http://www.nicoespeon.com/en/2015/11/plop-micro-generator-boilerplate-yeoman-alternative/)

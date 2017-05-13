@@ -24,6 +24,7 @@ function isSame(node, matchNode) {
   return matchNode.hashCode === node.hashCode
 }
 
+// TODO: move
 function resolveMatch({
   node,
   matchNode
