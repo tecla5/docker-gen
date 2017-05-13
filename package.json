@@ -28,6 +28,7 @@
   "dependencies": {
     "express": "^4.15.2",
     "fs-extra": "^3.0.1",
+    "github-api": "^3.0.0",
     "level": "^1.6.0",
     "md5": "^2.2.1"
   },
