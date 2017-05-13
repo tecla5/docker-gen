@@ -1,7 +1,9 @@
-var diff = require('../../fixtures/mix-diff.json')
-
 function toAction(diff) {
   let type = diff.type
+  console.log('toAction', {
+    diff,
+    type
+  })
   switch (type) {
     case 'new':
       return 'create'
@@ -14,25 +16,25 @@ function toAction(diff) {
   }
 }
 
-function toGitLabActions(diff) {
+function toGitLabAction(diff) {
   let action = toAction(diff)
-  let file_path = diff.filePath
+  let file_path = diff.node.filePath
   let commitAction = {
     action,
     file_path
   }
   if (action !== 'delete') {
-    commitAction.content = diff.data
+    commitAction.content = diff.node.data
   }
   return commitAction
 }
 
 function prepareActions(diff) {
-  return diff.map(toGitLabActions)
+  return diff.map(toGitLabAction)
 }
 
 module.exports = {
   prepareActions,
-  toGitLabActions,
+  toGitLabAction,
   toAction
 }
