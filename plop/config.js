@@ -1,5 +1,3 @@
-var path = require('path')
-
 module.exports = (data, actions) => {
   return {
     rootPath: __dirname,
