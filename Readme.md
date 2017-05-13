@@ -4,6 +4,15 @@ Generate a fully configured Docker Micro Services from a node-red project with [
 
 Such a Docker project can in turn be (re)-imported into node-red via [node-red-import](https://github.com/tecla5/node-red-import)
 
+## Docker project generator service
+
+Can be found in `/service`
+
+The `Dockerfile` will instantiate an express server on port 3100 with a root `/` endpoint
+that listens to incoming data in request `body` and uses it as `inputs` argument for `plop`. The `inputs` should be a list of `node-red` nodes.
+
+See `fixtures/nodes.js` for an example.
+
 ## Plop
 
 See [plop](http://www.nicoespeon.com/en/2015/11/plop-micro-generator-boilerplate-yeoman-alternative/)
